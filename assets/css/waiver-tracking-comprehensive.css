@@ -1,0 +1,399 @@
+/* Comprehensive Waiver Tracking Report Styles */
+
+.waiver-report-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.waiver-report-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    color: #1f2937;
+}
+
+.waiver-report-header div:last-child {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+/* Filter Section */
+.filter-section {
+    background: #fff;
+    padding: 24px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.filter-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 16px;
+    align-items: end;
+}
+
+.filter-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+.filter-form select,
+.filter-form input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.filter-form button {
+    padding: 12px 24px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.filter-form button:hover {
+    background: #1d4ed8;
+}
+
+/* Summary Stats */
+.summary-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 32px;
+}
+
+.stat-card {
+    padding: 24px 18px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.stat-card .stat-title {
+    font-size: 1.1rem;
+    color: #222;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.stat-card .stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 8px 0;
+}
+
+.stat-card .stat-subtitle {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+/* Report Table */
+.report-table-container {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.report-table-header {
+    padding: 24px;
+    border-bottom: 1px solid #eee;
+}
+
+.report-table-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.report-table-header .subtitle {
+    color: #666;
+    font-size: 0.95rem;
+    margin-top: 4px;
+}
+
+.report-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.report-table thead {
+    background: #f8f9fa;
+}
+
+.report-table th {
+    padding: 16px;
+    text-align: left;
+    font-weight: 600;
+    color: #333;
+    border-bottom: 1px solid #eee;
+}
+
+.report-table th.text-right {
+    text-align: right;
+}
+
+.report-table th.text-center {
+    text-align: center;
+}
+
+.report-table td {
+    padding: 16px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.report-table td.text-right {
+    text-align: right;
+}
+
+.report-table td.text-center {
+    text-align: center;
+}
+
+.report-table .level-name {
+    font-weight: 600;
+    color: #2563eb;
+}
+
+.report-table .level-subtitle {
+    font-size: 0.875rem;
+    color: #666;
+}
+
+.report-table .amount-value {
+    font-weight: 600;
+    color: #dc3545;
+}
+
+.report-table .amount-subtitle {
+    font-size: 0.875rem;
+    color: #666;
+}
+
+.report-table .applications-value {
+    font-weight: 600;
+    color: #10b981;
+}
+
+.report-table .applications-subtitle {
+    font-size: 0.875rem;
+    color: #666;
+}
+
+.report-table .limit-value {
+    font-weight: 600;
+}
+
+.report-table .limit-value.positive {
+    color: #10b981;
+}
+
+.report-table .limit-value.negative {
+    color: #dc3545;
+}
+
+.report-table .limit-subtitle {
+    font-size: 0.875rem;
+    color: #666;
+}
+
+.report-table .usage-percentage {
+    font-weight: 600;
+}
+
+.report-table .usage-bar {
+    width: 100px;
+    height: 8px;
+    background: #e9ecef;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 0 auto;
+    margin-top: 4px;
+}
+
+.report-table .usage-bar-fill {
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+.report-table .usage-bar-fill.low {
+    background: #10b981;
+}
+
+.report-table .usage-bar-fill.medium {
+    background: #f59e0b;
+}
+
+.report-table .usage-bar-fill.high {
+    background: #dc3545;
+}
+
+/* Chart Section */
+.chart-section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.chart-section h3 {
+    margin: 0 0 24px 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.chart-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.chart-item h4 {
+    margin: 0 0 16px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.chart-container {
+    position: relative;
+    height: 300px;
+}
+
+/* Empty State */
+.empty-state {
+    padding: 48px;
+    text-align: center;
+    color: #666;
+}
+
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    color: #ddd;
+}
+
+.empty-state p {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+/* Export Button */
+.export-btn {
+    padding: 10px 20px;
+    background: #10b981;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.export-btn:hover {
+    background: #059669;
+}
+
+.export-btn i {
+    font-size: 1.1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .summary-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .chart-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .waiver-report-header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+    }
+    
+    .filter-form {
+        grid-template-columns: 1fr;
+    }
+    
+    .summary-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .report-table-container {
+        overflow-x: auto;
+    }
+    
+    .report-table {
+        min-width: 800px;
+    }
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stat-card,
+.report-table-container,
+.chart-section {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Loading State */
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 48px;
+    color: #666;
+}
+
+.loading i {
+    font-size: 2rem;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
