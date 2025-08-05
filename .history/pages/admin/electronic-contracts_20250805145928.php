@@ -1605,36 +1605,6 @@ $applications = $db->fetchAll("SELECT id, application_code, customer_id FROM loa
         }
     }
 
-    function downloadContract(contractId) {
-        // Kiểm tra trạng thái hợp đồng từ server
-        fetch(`pages/admin/api/electronic-contracts.php?action=check_contract_status&contract_id=${contractId}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.success && data.status === 'completed') {
-                    // Hợp đồng đã được ký, có thể tải xuống
-                    const downloadUrl = `pages/admin/api/otp-verification.php?action=download_contract&contract_id=${contractId}`;
-
-                    // Tạo link download
-                    const link = document.createElement('a');
-                    link.href = downloadUrl;
-                    link.download = `HopDong_${contractId}.docx`;
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-
-                    // Hiển thị thông báo thành công
-                    alert('Đang tải xuống hợp đồng...');
-                } else {
-                    // Nếu chưa xác thực OTP, hiển thị thông báo
-                    alert('Vui lòng xác thực OTP trước khi tải xuống hợp đồng!');
-                }
-            })
-            .catch(error => {
-                console.error('Error checking contract status:', error);
-                alert('Có lỗi xảy ra khi kiểm tra trạng thái hợp đồng!');
-            });
-    }
-
     function downloadContractFromModal() {
         const contractId = window.currentContractId;
         if (window.verifiedOTP && window.verifiedOTP.contractId == contractId) {

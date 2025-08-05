@@ -158,11 +158,10 @@ class LoanApplicationsJS {
         $('#rejectApplicationModal').on('shown.bs.modal', () => this.onRejectModalShown());
         $('#editApplicationModal').on('shown.bs.modal', () => this.onEditModalShown());
 
-        // Handle approve button
-        $('#approve-btn').on('click', (e) => {
+        // Handle approval form submission
+        $('#approvalForm').on('submit', (e) => {
             e.preventDefault();
-            const formData = new FormData($('#approvalForm')[0]);
-            formData.append('action', 'approve_application');
+            const formData = new FormData(e.target);
 
             $.ajax({
                 url: 'pages/admin/api/loan-applications.php?action=approve_application',
@@ -172,11 +171,7 @@ class LoanApplicationsJS {
                 contentType: false,
                 success: (response) => {
                     if (response.success) {
-                        let message = response.message;
-                        if (response.contract_id && response.contract_code) {
-                            message += `\nMã hợp đồng: ${response.contract_code}\nID hợp đồng: ${response.contract_id}`;
-                        }
-                        this.showMessage(message, 'success');
+                        this.showMessage('Phê duyệt thành công!', 'success');
                         $('#approvalModal').modal('hide');
                         this.loadApplicationsList();
                     } else {
@@ -270,7 +265,6 @@ class LoanApplicationsJS {
 
     showApprovalModal(e) {
         const applicationId = $(e.currentTarget).data('id');
-        console.log('Showing approval modal for ID:', applicationId);
         this.loadApplicationForApproval(applicationId);
         $('#approvalModal').modal('show');
     }
@@ -340,7 +334,6 @@ class LoanApplicationsJS {
                     $('#edit-loading-state').hide();
                     $('#edit-modal-content').show();
                     console.log('Edit loading state hidden, content shown'); // Debug
-                    console.log('Data to populate:', response.data); // Debug
                     this.populateEditModal(response.data);
                 } else {
                     console.error('Edit API error:', response.message); // Debug
@@ -358,7 +351,7 @@ class LoanApplicationsJS {
 
     loadApplicationForApproval(applicationId) {
         console.log('Loading application for approval, ID:', applicationId);
-
+        
         $('#loading-state').show();
         $('#modal-content').hide();
 
@@ -508,14 +501,6 @@ class LoanApplicationsJS {
         $('#edit-approved-amount').val(this.formatCurrencyForInput(data.approved_amount));
         $('#edit-status').val(data.status);
 
-        // Thêm các field còn thiếu
-        $('#edit-customer-job').val(data.customer_job);
-        $('#edit-customer-income').val(this.formatCurrencyForInput(data.customer_income));
-        $('#edit-customer-company').val(data.customer_company);
-        $('#edit-customer-address').val(data.customer_address);
-        $('#edit-customer-birth-date').val(data.customer_birth_date);
-        $('#edit-customer-id-issued-date').val(data.customer_id_issued_date);
-
         // Populate asset information display
         $('#edit-asset-id').val(data.asset_id);
         $('#edit-asset-name-display').text(data.asset_name || 'N/A');
@@ -534,34 +519,12 @@ class LoanApplicationsJS {
 
         $('#edit-notes').val(data.decision_notes);
 
-        // Debug: Kiểm tra các field quan trọng
-        console.log('Debug field values after population:');
-        console.log('edit-customer-id:', $('#edit-customer-id').val());
-        console.log('edit-customer-cmnd:', $('#edit-customer-cmnd').val());
-        console.log('edit-customer-phone:', $('#edit-customer-phone').val());
-        console.log('edit-loan-amount:', $('#edit-loan-amount').val());
-        console.log('edit-loan-term:', $('#edit-loan-term').val());
-        console.log('edit-loan-purpose:', $('#edit-loan-purpose').val());
-        console.log('edit-interest-rate-id:', $('#edit-interest-rate-id').val());
-        console.log('edit-asset-id:', $('#edit-asset-id').val());
-
-        // Debug: Kiểm tra xem các element có tồn tại không
-        console.log('Element existence check:');
-        console.log('edit-customer-id exists:', $('#edit-customer-id').length);
-        console.log('edit-customer-cmnd exists:', $('#edit-customer-cmnd').length);
-        console.log('edit-customer-phone exists:', $('#edit-customer-phone').length);
-        console.log('edit-loan-amount exists:', $('#edit-loan-amount').length);
-        console.log('edit-loan-term exists:', $('#edit-loan-term').length);
-        console.log('edit-loan-purpose exists:', $('#edit-loan-purpose').length);
-        console.log('edit-interest-rate-id exists:', $('#edit-interest-rate-id').length);
-        console.log('edit-asset-id exists:', $('#edit-asset-id').length);
-
         console.log('Edit modal populated successfully'); // Debug
     }
 
     populateApprovalModal(data) {
         console.log('Populating approval modal with data:', data);
-
+        
         $('#modal-application-code').text(data.application_code);
         $('#modal-application-id').val(data.id);
 
@@ -584,7 +547,7 @@ class LoanApplicationsJS {
         $('#modal-asset-name').text(data.asset_name || 'N/A');
 
         // Set default approved amount
-        $('#modal-approved-amount-hidden').val(data.loan_amount);
+        $('#modal-approved-amount').val(this.formatCurrencyForInput(data.loan_amount));
 
         // Check approval permissions
         this.checkApprovalPermissions(data.id);
@@ -612,8 +575,12 @@ class LoanApplicationsJS {
                 if (response.success) {
                     const data = response.data;
 
+                    // Populate approval history
+                    this.populateApprovalHistory(data.approval_history);
+
                     // Set approval level and role
                     $('#modal-approval-level').val(data.approval_level);
+                    $('#modal-approval-role').val(data.approval_role);
                     $('#modal-current-user-id').val(data.application.created_by);
 
                     if (data.can_approve && data.current_status === 'pending') {
@@ -856,9 +823,9 @@ class LoanApplicationsJS {
 
     validateEditForm() {
         const requiredFields = [
-            'customer-id', 'customer-cmnd', 'customer-phone',
-            'loan-amount', 'loan-term', 'loan-purpose',
-            'interest-rate-id', 'asset-id'
+            'customer_id', 'customer_cmnd', 'customer_phone',
+            'loan_amount', 'loan_term', 'loan_purpose',
+            'interest_rate_id', 'asset_id'
         ];
 
         let isValid = true;
@@ -1111,19 +1078,8 @@ class LoanApplicationsJS {
         formData.append('action', 'edit');
 
         // Debug form data
-        console.log('FormData contents:');
         for (let [key, value] of formData.entries()) {
             console.log(`${key}: ${value}`);
-        }
-
-        // Debug: Kiểm tra xem action có được thêm vào không
-        console.log('Action in FormData:', formData.get('action'));
-
-        // Thêm application_id vào formData nếu chưa có
-        if (!formData.get('application_id')) {
-            const applicationId = $('#edit-application-id').val();
-            formData.append('application_id', applicationId);
-            console.log('Added application_id:', applicationId);
         }
 
         // Disable button
@@ -1153,8 +1109,6 @@ class LoanApplicationsJS {
             },
             error: (xhr, status, error) => {
                 console.log('Submit error:', error); // Debug
-                console.log('XHR status:', xhr.status); // Debug
-                console.log('XHR responseText:', xhr.responseText); // Debug
                 this.showError('Lỗi khi cập nhật đơn vay: ' + error);
             },
             complete: () => {

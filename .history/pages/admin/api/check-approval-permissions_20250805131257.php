@@ -50,14 +50,6 @@ try {
     $userMinAmount = floatval($currentUser['min_amount']);
     $userMaxAmount = floatval($currentUser['max_amount']);
 
-    // Debug thông tin
-    error_log("Debug approval permissions:");
-    error_log("Loan amount: " . $loanAmount);
-    error_log("User role ID: " . $userRoleId);
-    error_log("User min amount: " . $userMinAmount);
-    error_log("User max amount: " . $userMaxAmount);
-    error_log("User role name: " . $currentUser['role_name']);
-
     // Kiểm tra quyền phê duyệt
     $canApprove = false;
     $approvalLevel = 0;
@@ -67,10 +59,6 @@ try {
         $canApprove = true;
         $approvalLevel = $currentUser['role_id'];
         $approvalRole = $currentUser['role_name'];
-        error_log("User CAN approve this loan");
-    } else {
-        error_log("User CANNOT approve this loan");
-        error_log("Condition check: " . ($loanAmount >= $userMinAmount ? "true" : "false") . " AND " . ($loanAmount <= $userMaxAmount ? "true" : "false"));
     }
 
     // Lấy lịch sử phê duyệt

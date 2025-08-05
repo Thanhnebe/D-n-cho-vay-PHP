@@ -340,7 +340,6 @@ class LoanApplicationsJS {
                     $('#edit-loading-state').hide();
                     $('#edit-modal-content').show();
                     console.log('Edit loading state hidden, content shown'); // Debug
-                    console.log('Data to populate:', response.data); // Debug
                     this.populateEditModal(response.data);
                 } else {
                     console.error('Edit API error:', response.message); // Debug
@@ -1111,19 +1110,8 @@ class LoanApplicationsJS {
         formData.append('action', 'edit');
 
         // Debug form data
-        console.log('FormData contents:');
         for (let [key, value] of formData.entries()) {
             console.log(`${key}: ${value}`);
-        }
-
-        // Debug: Kiểm tra xem action có được thêm vào không
-        console.log('Action in FormData:', formData.get('action'));
-
-        // Thêm application_id vào formData nếu chưa có
-        if (!formData.get('application_id')) {
-            const applicationId = $('#edit-application-id').val();
-            formData.append('application_id', applicationId);
-            console.log('Added application_id:', applicationId);
         }
 
         // Disable button
@@ -1153,8 +1141,6 @@ class LoanApplicationsJS {
             },
             error: (xhr, status, error) => {
                 console.log('Submit error:', error); // Debug
-                console.log('XHR status:', xhr.status); // Debug
-                console.log('XHR responseText:', xhr.responseText); // Debug
                 this.showError('Lỗi khi cập nhật đơn vay: ' + error);
             },
             complete: () => {

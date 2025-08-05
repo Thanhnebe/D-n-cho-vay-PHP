@@ -198,7 +198,7 @@ try {
                         'disbursement_status' => 'pending',
                         'remaining_balance' => $approvedAmount,
                         'total_paid' => 0.00,
-                        'monthly_payment' => $applicationDetail['loan_term_months'] > 0 ? $approvedAmount / $applicationDetail['loan_term_months'] : 0,
+                        'monthly_payment' => $approvedAmount / $applicationDetail['loan_term_months'],
                         'created_by' => $currentUserId,
                         'approved_by' => $currentUserId
                     ];
@@ -1166,7 +1166,7 @@ try {
             ];
 
             // Cập nhật đơn vay
-            $result = $db->update('loan_applications', $updateData, 'id = ?', [$applicationId]);
+            $result = $db->update('loan_applications', $updateData, 'id = ?', ['id' => $applicationId]);
 
             if ($result) {
                 echo json_encode([

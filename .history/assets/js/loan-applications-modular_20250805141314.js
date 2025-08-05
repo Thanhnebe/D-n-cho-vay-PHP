@@ -1153,8 +1153,6 @@ class LoanApplicationsJS {
             },
             error: (xhr, status, error) => {
                 console.log('Submit error:', error); // Debug
-                console.log('XHR status:', xhr.status); // Debug
-                console.log('XHR responseText:', xhr.responseText); // Debug
                 this.showError('Lỗi khi cập nhật đơn vay: ' + error);
             },
             complete: () => {

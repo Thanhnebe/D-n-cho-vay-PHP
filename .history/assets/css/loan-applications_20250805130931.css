@@ -55,7 +55,6 @@
 .timeline-content strong {
     color: #495057;
 }
-
 .loan-applications-container {
     padding: 20px;
     background: #f8f9fa;
@@ -68,14 +67,14 @@
     padding: 30px;
     border-radius: 15px;
     margin-bottom: 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
 .loan-header h1 {
     margin: 0;
     font-size: 2.5rem;
     font-weight: 700;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
 .loan-header p {
@@ -95,14 +94,14 @@
     background: white;
     padding: 25px;
     border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
     border-left: 5px solid #667eea;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .loan-stat-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
 .loan-stat-card.pending {
@@ -146,7 +145,7 @@
     background: white;
     padding: 25px;
     border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
     margin-bottom: 30px;
 }
 
@@ -226,7 +225,7 @@
 .loan-table-container {
     background: white;
     border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
     overflow: hidden;
 }
 
@@ -408,7 +407,7 @@
 .loan-form-container {
     background: white;
     border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
     padding: 30px;
     margin-bottom: 30px;
 }
@@ -590,7 +589,7 @@
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0,0,0,0.5);
     backdrop-filter: blur(5px);
 }
 
@@ -603,7 +602,7 @@
     max-width: 1200px;
     max-height: 90vh;
     overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
     animation: modalSlideIn 0.3s ease;
 }
 
@@ -612,7 +611,6 @@
         opacity: 0;
         transform: translateY(-50px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
@@ -651,7 +649,7 @@
 }
 
 .loan-modal-close:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255,255,255,0.2);
 }
 
 .loan-modal-body {
@@ -707,42 +705,42 @@
     .loan-header h1 {
         font-size: 2rem;
     }
-
+    
     .loan-stats-grid {
         grid-template-columns: 1fr;
     }
-
+    
     .filter-row {
         grid-template-columns: 1fr;
     }
-
+    
     .loan-table {
         font-size: 0.85rem;
     }
-
+    
     .loan-table th,
     .loan-table td {
         padding: 10px 8px;
     }
-
+    
     .action-buttons {
         flex-direction: column;
         gap: 5px;
     }
-
+    
     .loan-modal-content {
         width: 95%;
         margin: 10% auto;
     }
-
+    
     .form-grid {
         grid-template-columns: 1fr;
     }
-
+    
     .asset-info-grid {
         grid-template-columns: 1fr;
     }
-
+    
     .form-actions {
         flex-direction: column;
     }
@@ -760,13 +758,8 @@
 }
 
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* Empty State */

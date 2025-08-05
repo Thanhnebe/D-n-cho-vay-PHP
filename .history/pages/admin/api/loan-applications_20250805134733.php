@@ -69,7 +69,7 @@ try {
     exit;
 }
 
-$action = $_GET['action'] ?? $_POST['action'] ?? '';
+$action = $_GET['action'] ?? '';
 
 // Debug: Log action
 error_log('API Action: ' . $action);
@@ -91,10 +91,6 @@ if (!function_exists('sanitize_input')) {
 }
 
 try {
-    // Debug: Log action và POST data
-    error_log("API Debug - Action: " . $action);
-    error_log("API Debug - POST data: " . print_r($_POST, true));
-
     switch ($action) {
         case 'approve_application':
             $applicationId = intval($_POST['application_id']);
@@ -198,7 +194,7 @@ try {
                         'disbursement_status' => 'pending',
                         'remaining_balance' => $approvedAmount,
                         'total_paid' => 0.00,
-                        'monthly_payment' => $applicationDetail['loan_term_months'] > 0 ? $approvedAmount / $applicationDetail['loan_term_months'] : 0,
+                        'monthly_payment' => $approvedAmount / $applicationDetail['loan_term_months'],
                         'created_by' => $currentUserId,
                         'approved_by' => $currentUserId
                     ];
@@ -1096,86 +1092,6 @@ try {
                 'success' => true,
                 'message' => 'Đã gửi lại mã OTP'
             ]);
-            break;
-
-        case 'edit':
-            $applicationId = intval($_POST['application_id']);
-            $currentUserId = $_SESSION['user_id'] ?? null;
-
-            if (!$applicationId || !$currentUserId) {
-                throw new Exception('Thông tin không hợp lệ');
-            }
-
-            // Lấy thông tin đơn vay hiện tại
-            $currentApplication = $db->fetchOne("
-                SELECT * FROM loan_applications WHERE id = ?
-            ", [$applicationId]);
-
-            if (!$currentApplication) {
-                throw new Exception('Không tìm thấy đơn vay');
-            }
-
-            // Chỉ cho phép chỉnh sửa đơn vay ở trạng thái pending hoặc draft
-            if (!in_array($currentApplication['status'], ['pending', 'draft'])) {
-                throw new Exception('Chỉ có thể chỉnh sửa đơn vay chưa được xử lý');
-            }
-
-            // Chuẩn bị dữ liệu cập nhật
-            $updateData = [
-                'customer_name' => sanitize_input($_POST['customer_name']),
-                'customer_cmnd' => sanitize_input($_POST['customer_cmnd']),
-                'customer_phone_main' => sanitize_input($_POST['customer_phone_main']),
-                'customer_email' => sanitize_input($_POST['customer_email']),
-                'customer_birth_date' => $_POST['customer_birth_date'],
-                'customer_id_issued_place' => sanitize_input($_POST['customer_id_issued_place']),
-                'customer_id_issued_date' => $_POST['customer_id_issued_date'],
-                'customer_job' => sanitize_input($_POST['customer_job']),
-                'customer_income' => floatval(str_replace(',', '', $_POST['customer_income'])),
-                'customer_company' => sanitize_input($_POST['customer_company']),
-                'customer_address' => sanitize_input($_POST['customer_address']),
-                'loan_amount' => floatval(str_replace(',', '', $_POST['loan_amount'])),
-                'loan_term_months' => intval($_POST['loan_term_months']),
-                'loan_purpose' => sanitize_input($_POST['loan_purpose']),
-                'interest_rate_id' => intval($_POST['interest_rate_id']),
-                'monthly_rate' => floatval($_POST['monthly_rate']),
-                'daily_rate' => floatval($_POST['daily_rate']),
-                'asset_name' => sanitize_input($_POST['asset_name']),
-                'asset_quantity' => intval($_POST['asset_quantity']),
-                'asset_value' => floatval(str_replace(',', '', $_POST['asset_value'])),
-                'asset_license_plate' => sanitize_input($_POST['asset_license_plate']),
-                'asset_frame_number' => sanitize_input($_POST['asset_frame_number']),
-                'asset_engine_number' => sanitize_input($_POST['asset_engine_number']),
-                'asset_registration_number' => sanitize_input($_POST['asset_registration_number']),
-                'asset_registration_date' => $_POST['asset_registration_date'],
-                'asset_brand' => sanitize_input($_POST['asset_brand']),
-                'asset_model' => sanitize_input($_POST['asset_model']),
-                'asset_year' => intval($_POST['asset_year']),
-                'asset_fuel_type' => sanitize_input($_POST['asset_fuel_type']),
-                'asset_color' => sanitize_input($_POST['asset_color']),
-                'asset_cc' => sanitize_input($_POST['asset_cc']),
-                'asset_condition' => sanitize_input($_POST['asset_condition']),
-                'asset_description' => sanitize_input($_POST['asset_description']),
-                'emergency_contact_name' => sanitize_input($_POST['emergency_contact_name']),
-                'emergency_contact_phone' => sanitize_input($_POST['emergency_contact_phone']),
-                'emergency_contact_relationship' => sanitize_input($_POST['emergency_contact_relationship']),
-                'emergency_contact_address' => sanitize_input($_POST['emergency_contact_address']),
-                'emergency_contact_note' => sanitize_input($_POST['emergency_contact_note']),
-                'has_health_insurance' => isset($_POST['has_health_insurance']) ? 1 : 0,
-                'has_life_insurance' => isset($_POST['has_life_insurance']) ? 1 : 0,
-                'updated_at' => date('Y-m-d H:i:s')
-            ];
-
-            // Cập nhật đơn vay
-            $result = $db->update('loan_applications', $updateData, 'id = ?', [$applicationId]);
-
-            if ($result) {
-                echo json_encode([
-                    'success' => true,
-                    'message' => 'Cập nhật đơn vay thành công'
-                ]);
-            } else {
-                throw new Exception('Có lỗi xảy ra khi cập nhật đơn vay');
-            }
             break;
 
         default:

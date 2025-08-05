@@ -1119,13 +1119,6 @@ class LoanApplicationsJS {
         // Debug: Kiểm tra xem action có được thêm vào không
         console.log('Action in FormData:', formData.get('action'));
 
-        // Thêm application_id vào formData nếu chưa có
-        if (!formData.get('application_id')) {
-            const applicationId = $('#edit-application-id').val();
-            formData.append('application_id', applicationId);
-            console.log('Added application_id:', applicationId);
-        }
-
         // Disable button
         $('#saveEditBtn').prop('disabled', true).html('<i class="fas fa-spinner fa-spin me-2"></i>Đang lưu...');
 
@@ -1153,8 +1146,6 @@ class LoanApplicationsJS {
             },
             error: (xhr, status, error) => {
                 console.log('Submit error:', error); // Debug
-                console.log('XHR status:', xhr.status); // Debug
-                console.log('XHR responseText:', xhr.responseText); // Debug
                 this.showError('Lỗi khi cập nhật đơn vay: ' + error);
             },
             complete: () => {

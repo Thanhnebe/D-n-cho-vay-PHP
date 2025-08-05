@@ -517,15 +517,14 @@
                         </div>
                     </div>
 
-                    <!-- Ghi chú đánh giá -->
+                    <!-- Lịch sử phê duyệt -->
                     <div class="row mb-4">
                         <div class="col-12">
                             <h6 class="text-primary mb-3">
-                                <i class="fas fa-edit me-2"></i>Ghi chú đánh giá
+                                <i class="fas fa-history me-2"></i>Lịch sử phê duyệt
                             </h6>
-                            <div class="mb-3">
-                                <textarea class="form-control" id="modal-comments" name="comments" rows="4"
-                                    placeholder="Nhập ghi chú về quyết định của bạn..."></textarea>
+                            <div id="approval-history">
+                                <!-- Sẽ được populate bằng JavaScript -->
                             </div>
                         </div>
                     </div>
@@ -546,14 +545,36 @@
                             <input type="hidden" name="application_id" id="modal-application-id">
                             <input type="hidden" name="approval_level" id="modal-approval-level">
                             <input type="hidden" name="current_user_id" id="modal-current-user-id">
-                            <input type="hidden" name="approved_amount" id="modal-approved-amount-hidden">
+                            
+                            <h6 class="text-primary mb-3">
+                                <i class="fas fa-edit me-2"></i>Ghi chú đánh giá
+                            </h6>
+                            <div class="mb-3">
+                                <textarea class="form-control" id="modal-comments" name="comments" rows="4"
+                                    placeholder="Nhập ghi chú về quyết định của bạn..."></textarea>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="modal-approved-amount" class="form-label">Số tiền được duyệt <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control currency-input" id="modal-approved-amount" name="approved_amount" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="modal-approval-role" class="form-label">Cấp phê duyệt</label>
+                                        <input type="text" class="form-control" id="modal-approval-role" readonly>
+                                        <small class="form-text text-muted">Dựa trên số tiền vay và quyền của bạn</small>
+                                    </div>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary" id="approve-btn" style="display: none;">
+                <button type="submit" form="approvalForm" class="btn btn-primary" id="approve-btn" style="display: none;">
                     <i class="fas fa-check me-2"></i>Phê duyệt
                 </button>
                 <button type="button" class="btn btn-danger" id="reject-btn" style="display: none;">
@@ -906,30 +927,6 @@
                                                     <label for="edit-customer-email" class="form-label">Email</label>
                                                     <input type="email" class="form-control" id="edit-customer-email" name="customer_email" placeholder="example@email.com">
                                                     <small class="form-text text-muted">Nhập địa chỉ email hợp lệ</small>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="edit-customer-birth-date" class="form-label">Ngày sinh</label>
-                                                    <input type="date" class="form-control" id="edit-customer-birth-date" name="customer_birth_date">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="edit-customer-id-issued-date" class="form-label">Ngày cấp CCCD</label>
-                                                    <input type="date" class="form-control" id="edit-customer-id-issued-date" name="customer_id_issued_date">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="edit-customer-job" class="form-label">Nghề nghiệp</label>
-                                                    <input type="text" class="form-control" id="edit-customer-job" name="customer_job" placeholder="Nhập nghề nghiệp">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="edit-customer-income" class="form-label">Thu nhập hàng tháng</label>
-                                                    <input type="text" class="form-control currency-input" id="edit-customer-income" name="customer_income" placeholder="0">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="edit-customer-company" class="form-label">Công ty</label>
-                                                    <input type="text" class="form-control" id="edit-customer-company" name="customer_company" placeholder="Tên công ty">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="edit-customer-address" class="form-label">Địa chỉ</label>
-                                                    <textarea class="form-control" id="edit-customer-address" name="customer_address" rows="2" placeholder="Địa chỉ chi tiết"></textarea>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="edit-emergency-name" class="form-label">Tên người liên hệ khẩn cấp</label>

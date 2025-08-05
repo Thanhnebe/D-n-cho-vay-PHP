@@ -553,7 +553,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary" id="approve-btn" style="display: none;">
+                <button type="submit" form="approvalForm" class="btn btn-primary" id="approve-btn" style="display: none;">
                     <i class="fas fa-check me-2"></i>Phê duyệt
                 </button>
                 <button type="button" class="btn btn-danger" id="reject-btn" style="display: none;">
@@ -906,30 +906,6 @@
                                                     <label for="edit-customer-email" class="form-label">Email</label>
                                                     <input type="email" class="form-control" id="edit-customer-email" name="customer_email" placeholder="example@email.com">
                                                     <small class="form-text text-muted">Nhập địa chỉ email hợp lệ</small>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="edit-customer-birth-date" class="form-label">Ngày sinh</label>
-                                                    <input type="date" class="form-control" id="edit-customer-birth-date" name="customer_birth_date">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="edit-customer-id-issued-date" class="form-label">Ngày cấp CCCD</label>
-                                                    <input type="date" class="form-control" id="edit-customer-id-issued-date" name="customer_id_issued_date">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="edit-customer-job" class="form-label">Nghề nghiệp</label>
-                                                    <input type="text" class="form-control" id="edit-customer-job" name="customer_job" placeholder="Nhập nghề nghiệp">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="edit-customer-income" class="form-label">Thu nhập hàng tháng</label>
-                                                    <input type="text" class="form-control currency-input" id="edit-customer-income" name="customer_income" placeholder="0">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="edit-customer-company" class="form-label">Công ty</label>
-                                                    <input type="text" class="form-control" id="edit-customer-company" name="customer_company" placeholder="Tên công ty">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="edit-customer-address" class="form-label">Địa chỉ</label>
-                                                    <textarea class="form-control" id="edit-customer-address" name="customer_address" rows="2" placeholder="Địa chỉ chi tiết"></textarea>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="edit-emergency-name" class="form-label">Tên người liên hệ khẩn cấp</label>
